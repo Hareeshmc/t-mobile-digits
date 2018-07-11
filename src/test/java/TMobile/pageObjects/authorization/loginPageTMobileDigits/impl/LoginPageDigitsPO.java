@@ -13,6 +13,8 @@ public class LoginPageDigitsPO extends BasicElements implements LoginPageDigitsM
     private static final Logger LOGGER = LogManager.getLogger();
 
     private By microsoftBtn = By.cssSelector("[class='btn btn-msft']");
+    private By googleBtn = By.cssSelector("[class='btngoogle btn-gplus']");
+    private By tmobileBtn = By.cssSelector("[class='btn btn-tmo']");
 
 
     private LoginPageDigitsPO(WebDriver driver) {
@@ -38,6 +40,10 @@ public class LoginPageDigitsPO extends BasicElements implements LoginPageDigitsM
     public void pressOnAuthorizationButton(String buttonName) {
         if (buttonName.equals("Microsoft")) {
             click(microsoftBtn);
+        } else if (buttonName.equals("Google")) {
+            click(googleBtn);
+        } else if (buttonName.equals("T-Mobile")) {
+            click(tmobileBtn);
         } else {
             Assert.fail("requested " + buttonName + " button does not exist");
         }

@@ -9,7 +9,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.testng.Assert;
@@ -144,9 +143,9 @@ public class Driver extends Thread {
      * @return
      */
     private static WebDriver determineRemoteDriver() {
-        DesiredCapabilities capability = DesiredCapabilities.chrome();
+        ChromeOptions chromeOptions = new ChromeOptions();
         try {
-            return new RemoteWebDriver(new URL(getRemoteTestEnvIpAddress().trim()), capability);
+            return new RemoteWebDriver(new URL("http://" + getRemoteTestEnvIpAddress().trim() + ":4444/wd/hub"), chromeOptions);
         } catch (UnreachableBrowserException e) {
             Assert.fail(e.getMessage());
         } catch (MalformedURLException e) {

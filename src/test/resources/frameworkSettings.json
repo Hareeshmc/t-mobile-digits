@@ -7,11 +7,11 @@
     },
     {
       "@name": "Browser",
-      "@value": "chrome"
+      "@value": "remote"
     },
     {
       "@name": "remoteURL",
-      "@value": "x.x.x.x"
+      "@value": "172.17.24.79"
     }
   ]
 }

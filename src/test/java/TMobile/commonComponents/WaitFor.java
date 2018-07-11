@@ -27,7 +27,7 @@ public class WaitFor {
         try {
             new NgWebDriver((JavascriptExecutor) driver).waitForAngularRequestsToFinish();
             new WebDriverWait(driver, WAIT_TIME).until((ExpectedCondition<Boolean>) wd ->
-                    wd != null && ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
+                    ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
         } catch (ScriptTimeoutException e) {
             LOGGER.info("script timeout");
         }
@@ -71,7 +71,7 @@ public class WaitFor {
         return true;
     }
 
-    public void ForElementNotPresent(By element) {
+    void ForElementNotPresent(By element) {
         wait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(WAIT_TIME))
                 .pollingEvery(Duration.ofMillis(POLLING_TIME))
@@ -79,7 +79,7 @@ public class WaitFor {
         wait.until(ExpectedConditions.stalenessOf(driver.findElement(element)));
     }
 
-    public <T> boolean ForElementBePresent(T locator, Integer... timeout) {
+    <T> boolean ForElementBePresent(T locator, Integer... timeout) {
         long time;
         if (timeout.length > 0) {
             time = new Long(timeout[0]);

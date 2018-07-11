@@ -11,12 +11,13 @@ Feature: Getting through Microsoft Authorization to the T-Mobile DIGITS dashboar
     Then I get through "Microsoft" authorization with credentials:
       | Tmostg02@outlook.com | Tmotest00 |
     When I see loading screen
-    Then I get to the channels page
     And I sit on the Page for "10" seconds
 
   Scenario: Go through authorization and get stuck on loading screen, by selecting
     Then I get through "Microsoft" authorization with credentials:
       | Tmostg02@outlook.com | Tmotest00 |
     When I see loading screen
+    And I sit on the Page for "10" seconds
+
 
 

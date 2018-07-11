@@ -9,7 +9,7 @@ Feature: Getting through Microsoft Authorization to the T-Mobile DIGITS dashboar
 
   Scenario: Go through authorization and get the application dashboard, by selecting: Share Location
     Then I get through "Microsoft" authorization with credentials:
-      | Tmostg01@outlook.com | Tmotest00 |
+      | Tmostg02@outlook.com | Tmotest00 |
     When I see loading screen
     Then I get to the channels page
     And I sit on the Page for "10" seconds

@@ -1,11 +1,11 @@
 package TMobile.utils;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
@@ -14,7 +14,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.testng.Assert;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -22,6 +21,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static TMobile.frameworkConfiguration.FrameworkParameter.getRemoteTestEnvIpAddress;
+import static io.github.bonigarcia.wdm.DriverManagerType.CHROME;
+import static io.github.bonigarcia.wdm.DriverManagerType.FIREFOX;
 
 
 public class Driver extends Thread {
@@ -92,22 +93,9 @@ public class Driver extends Thread {
     private static WebDriver _get() {
         cleanup();
 
-        if (useThisDriver == null) {
-            setBrowser(System.getProperty("demo.webdriver", "CHROME"));
-        }
-        String driverDir;
-        LOGGER.info("You are running : " + System.getProperty("os.name"));
-        if (System.getProperty("os.name").equals("Windows 10")) {
-            driverDir = "src\\test\\java\\TMobile\\utils\\";
-        } else {
-            driverDir = "src/test/java/TMobile/utils/";
-        }
-
-        boolean isWin = System.getProperty("os.name").contains("Windows");
-
         switch (useThisDriver) {
             case FIREFOX:
-                System.setProperty("webdriver.gecko.driver", driverDir + "geckodriver" + (isWin ? ".exe" : ""));
+                WebDriverManager.getInstance(FIREFOX).setup();
                 aDriver = new FirefoxDriver();
                 aDriver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
                 aDriver.manage().timeouts().setScriptTimeout(120, TimeUnit.SECONDS);
@@ -125,11 +113,9 @@ public class Driver extends Thread {
                 ChromeOptions handlSSLErr = new ChromeOptions();
                 handlSSLErr.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
                 handlSSLErr.setCapability(ChromeOptions.CAPABILITY, options);
-                ChromeDriverService service = new ChromeDriverService.Builder()
-                        .usingDriverExecutable(new File(driverDir + "chromedriver" + (isWin ? ".exe" : "")))
-                        .usingAnyFreePort()
-                        .build();
-                aDriver = new ChromeDriver(service, options);
+
+                WebDriverManager.getInstance(CHROME).setup();
+                aDriver = new ChromeDriver(options);
 
                 aDriver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
                 aDriver.manage().timeouts().setScriptTimeout(120, TimeUnit.SECONDS);

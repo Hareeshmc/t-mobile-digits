@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.RemoteWebElement;
  * This is Base Page Object implementing common for all pages behavior.
  */
 public class BasicElements {
-    public WaitFor wait;
+    private WaitFor wait;
     protected WebDriver driver;
 
     public BasicElements(WebDriver driver) {
@@ -17,7 +17,7 @@ public class BasicElements {
         wait = new WaitFor(driver);
     }
 
-    public <T> T click(T ele, boolean... expectRefresh) {
+    protected <T> T click(T ele, boolean... expectRefresh) {
         final By body = By.cssSelector("body");
         wait.ForElementBePresent(ele);
         if (ele.getClass().equals(WebElement.class)) {
@@ -31,7 +31,7 @@ public class BasicElements {
         return ele;
     }
 
-    public <T> void setText(T ele, String symbols) {
+    protected <T> void setText(T ele, String symbols) {
         wait.ForElementBePresent(ele);
         driver.findElement(((By) ele)).clear();
         driver.findElement((By) ele).sendKeys(symbols);

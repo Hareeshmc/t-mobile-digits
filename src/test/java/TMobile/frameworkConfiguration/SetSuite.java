@@ -38,6 +38,7 @@ public class SetSuite {
             JSONArray parameters = (JSONArray) jsonObject.get("parameter");
             FrameworkParameter.setTestEnvIpAddress(getParameterValue("URI", parameters));
             FrameworkParameter.setBrowser(getParameterValue("Browser", parameters));
+            FrameworkParameter.setRemoteTestEnvIpAddress(getParameterValue("remoteURL", parameters));
         } catch (IOException | ParseException e) {
             LOGGER.info(e.getMessage());
         }

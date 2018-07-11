@@ -9,7 +9,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.testng.Assert;
@@ -40,12 +39,12 @@ public class Driver extends Thread {
     public static WebDriver create(String browser, String aURL, boolean maximize) throws WebDriverException {
         setBrowser(browser);
         if (get() == null) {
-            LOGGER.error("Unable to load driver for \"" + browser + "\"");
+            LOGGER.info("Unable to load driver for \"" + browser + "\"");
         }
         try {
             aDriver.get(aURL);
         } catch (WebDriverException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
         if (maximize) {
             aDriver.manage().window().maximize();
@@ -68,7 +67,7 @@ public class Driver extends Thread {
                 useThisDriver = BrowserName.REMOTE;
                 break;
             default:
-                LOGGER.error("Invalid browser driver name specified \"" + browser + "\"");
+                LOGGER.info("Invalid browser driver name specified \"" + browser + "\"");
         }
         cleanup();
     }
@@ -82,7 +81,7 @@ public class Driver extends Thread {
                 return aDriver;
             }
         } catch (Exception e) {
-            LOGGER.error("Not able to get current Driver");
+            LOGGER.info("Not able to get current Driver");
         }
         return _get();
     }
@@ -144,13 +143,13 @@ public class Driver extends Thread {
      * @return
      */
     private static WebDriver determineRemoteDriver() {
-        DesiredCapabilities capability = DesiredCapabilities.chrome();
+        ChromeOptions chromeOptions = new ChromeOptions();
         try {
-            return new RemoteWebDriver(new URL(getRemoteTestEnvIpAddress().trim()), capability);
+            return new RemoteWebDriver(new URL("http://" + getRemoteTestEnvIpAddress().trim() + ":4444/wd/hub"), chromeOptions);
         } catch (UnreachableBrowserException e) {
             Assert.fail(e.getMessage());
         } catch (MalformedURLException e) {
-            LOGGER.error("Remote url invalid: " + getRemoteTestEnvIpAddress() + " (skipping)\n");
+            LOGGER.info("Remote url invalid: " + getRemoteTestEnvIpAddress() + " (skipping)\n");
             Assert.fail("No appropriate remote driver found.");
         }
         return null;

@@ -1,0 +1,17 @@
+{
+  "@name": "Core",
+  "parameter": [
+    {
+      "@name": "URI",
+      "@value": "https://guib.uccprodgeo.t-mobile.com/guib/home.html?client_id=D2BWRG&scope=TMO_ID_profile%20associated_lines%20permission&response_type=code&access_type=OFFLINE&rtype=rereg&redirect_uri=https%3A%2F%2Fwrg.ucc.t-mobile.com%2Freg_srv&state=https://my.ucc.t-mobile.com/wrcent/home.html"
+    },
+    {
+      "@name": "Browser",
+      "@value": "chrome"
+    },
+    {
+      "@name": "remoteURL",
+      "@value": "x.x.x.x"
+    }
+  ]
+}

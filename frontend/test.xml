@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SolutionDemo">
+    <test name="demo">
+        <groups>
+            <run>
+                <include name="Demo"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="main.RunCucumberDemo"/>
+        </classes>
+    </test>
+</suite>
